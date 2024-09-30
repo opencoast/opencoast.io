@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: OpenCoast
-subtitle: 'A band of cloud native programmers, some interesting things'
+title: Open Coast
+subtitle: 'A Collective of Cloud Native Minds, Innovating Together.'
 description: ''
 keywords:
 author: 'opencoast.io'
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
