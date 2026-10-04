@@ -1,0 +1,48 @@
+# Deploy the static site on the main branch to GitHub Pages.
+# Place this file at .github/workflows/pages.yml in the opencoast/opencoast.io repository.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allow manual runs from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time; don't cancel a run that is already deploying.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # Directory to publish, relative to the repository root.
+  # "." publishes the root (index.html, images/, CNAME ...).
+  # If you later move the site into a subfolder, e.g. "site", change it here.
+  PUBLISH_DIR: .
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # Dotfiles and dot-folders (.git, .github ...) are excluded automatically.
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ env.PUBLISH_DIR }}
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
